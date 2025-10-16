@@ -2,7 +2,7 @@
 
 Generated app for:
 
-> Update the 'Sales Dashboard 2025' page. Add an average sales per region line (#average-sales) in blue and a button to toggle total vs average display.
+> Publish a single-page site that fetches data.csv from attachments, sums its Sales column, sets the title to 'Sales Dashboard 2025', and displays the total in green text formatted as currency.
 
 ---
 MIT License
