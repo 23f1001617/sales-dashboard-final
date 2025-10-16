@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sales Dashboard 2025</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        h1 {
+            color: #333;
+        }
+        .total {
+            font-size: 2em;
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <h1>Sales Dashboard 2025</h1>
+    <div class="total" id="totalSales">Total Sales: $0.00</div>
+
+    <script>
+        async function fetchData() {
+            const response = await fetch('data.csv');
+            const data = await response.text();
+            const rows = data.split('\n').slice(1); // Skip header row
+            let totalSales = 0;
+
+            rows.forEach(row => {
+                const columns = row.split(',');
+                const sales = parseFloat(columns[1]); // Assuming Sales is in the second column
+                if (!isNaN(sales)) {
+                    totalSales += sales;
+                }
+            });
+
+            document.getElementById('totalSales').innerText = `Total Sales: $${totalSales.toFixed(2)}`;
+        }
+
+        fetchData();
+    </script>
+
+        <script>
+        // 🔄 Universal CSV handler
+        async function sumCSV() {
+            try {
+                const res = await fetch('./data.csv');
+                const text = await res.text();
+                const rows = text.trim().split(/\r?\n/).slice(1); // skip header
+                const total = rows.reduce((acc, row) => {
+                    const parts = row.split(',');
+                    const val = parseFloat(parts[parts.length - 1]) || 0;
+                    return acc + val;
+                }, 0);
+                const el = document.querySelector('#total-sales');
+                if (el) el.textContent = 'Total Sales: $' + total.toFixed(2);
+            } catch (e) { console.error('CSV parse failed', e); }
+        }
+        document.addEventListener('DOMContentLoaded', sumCSV);
+        </script>
+        </body>
+</html>
+<!-- build-id: 2025-10-16T07:28:28.185858 -->
